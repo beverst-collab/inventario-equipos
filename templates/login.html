@@ -1,0 +1,12 @@
+<h2>Login</h2>
+
+<form method="post">
+{% csrf_token %}
+<input name="username" placeholder="Usuario"><br>
+<input type="password" name="password" placeholder="Password"><br>
+<button>Entrar</button>
+</form>
+
+{% if error %}
+<p>{{error}}</p>
+{% endif %}

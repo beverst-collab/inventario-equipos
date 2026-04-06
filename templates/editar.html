@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Equipo</title>
+</head>
+<body>
+
+<h2>Editar Equipo</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<input name="nombre" value="{{equipo.nombre}}" placeholder="Nombre"><br><br>
+
+<input name="tipo_equipo" value="{{equipo.tipo_equipo}}" placeholder="Tipo de equipo"><br><br>
+
+<input name="marca" value="{{equipo.marca}}" placeholder="Marca"><br><br>
+
+<input name="modelo" value="{{equipo.modelo}}" placeholder="Modelo"><br><br>
+
+<input name="serial" value="{{equipo.serial}}" placeholder="Serial"><br><br>
+
+<input name="cantidad" type="number" value="{{equipo.cantidad}}" placeholder="Cantidad"><br><br>
+
+<select name="estado">
+    <option value="activo" {% if equipo.estado == "activo" %}selected{% endif %}>Activo</option>
+    <option value="retirado" {% if equipo.estado == "retirado" %}selected{% endif %}>Retirado</option>
+</select><br><br>
+
+<input type="date" name="fecha_registro" value="{{equipo.fecha_registro|date:'Y-m-d'}}"><br><br>
+
+<button>Actualizar</button>
+
+</form>
+
+</body>
+</html>

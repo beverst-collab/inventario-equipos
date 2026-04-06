@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Inventario</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { background:#0f172a; color:#e2e8f0; }
+.container { background:#111827; padding:25px; border-radius:12px; }
+.table thead { background:#1f2937; }
+</style>
+
+</head>
+<body>
+
+<div class="container mt-5">
+
+<div class="d-flex justify-content-between mb-4">
+    <div>
+        <h2>Inventario</h2>
+        <span class="badge bg-success">{{ equipos|length }} equipos</span>
+    </div>
+
+    <div>
+        <span class="badge bg-info">
+            {{ request.user.username }} 
+            ({{ es_admin|yesno:"Admin,Técnico" }})
+        </span>
+        <a href="/logout/" class="btn btn-outline-light btn-sm">Salir</a>
+    </div>
+</div>
+
+<a href="/crear/" class="btn btn-success mb-3">➕ Nuevo</a>
+
+<form method="GET">
+
+<input name="q" value="{{request.GET.q}}" placeholder="Buscar..." class="form-control mb-2">
+
+<div class="row mb-2">
+
+<div class="col">
+<select name="tipo_equipo" class="form-select">
+    <option value="Todos">Todos</option>
+    <option value="Laptop" {% if request.GET.tipo_equipo == "Laptop" %}selected{% endif %}>Laptop</option>
+    <option value="PC" {% if request.GET.tipo_equipo == "PC" %}selected{% endif %}>PC</option>
+</select>
+</div>
+
+<div class="col">
+<select name="estado" class="form-select">
+    <option value="Todos">Todos</option>
+    <option value="activo" {% if request.GET.estado == "activo" %}selected{% endif %}>Activo</option>
+    <option value="retirado" {% if request.GET.estado == "retirado" %}selected{% endif %}>Retirado</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn btn-primary">Filtrar</button>
+
+</form>
+
+<table class="table table-bordered mt-3">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Tipo</th>
+<th>Marca</th>
+<th>Modelo</th>
+<th>Serial</th>
+<th>Cantidad</th>
+<th>Estado</th>
+<th>Fecha</th>
+{% if es_admin %}<th>Acciones</th>{% endif %}
+</tr>
+</thead>
+
+<tbody>
+
+{% for e in equipos %}
+<tr>
+<td>{{e.id}}</td>
+<td>{{e.nombre}}</td>
+<td>{{e.tipo_equipo}}</td>
+<td>{{e.marca}}</td>
+<td>{{e.modelo}}</td>
+<td>{{e.serial}}</td>
+<td>{{e.cantidad}}</td>
+<td>{{e.estado}}</td>
+<td>{{e.fecha_registro}}</td>
+
+{% if es_admin %}
+<td>
+<a href="/editar/{{e.id}}" class="btn btn-warning btn-sm">✏️</a>
+<a href="/eliminar/{{e.id}}" class="btn btn-danger btn-sm">🗑</a>
+</td>
+{% endif %}
+
+</tr>
+{% empty %}
+<tr>
+<td colspan="10" class="text-center">No hay resultados</td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

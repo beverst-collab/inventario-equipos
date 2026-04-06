@@ -1,0 +1,22 @@
+<h2>Crear Equipo</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<input name="nombre" placeholder="Nombre"><br><br>
+<input name="tipo_equipo" placeholder="Tipo de equipo"><br><br>
+<input name="marca" placeholder="Marca"><br><br>
+<input name="modelo" placeholder="Modelo"><br><br>
+<input name="serial" placeholder="Serial"><br><br>
+<input name="cantidad" type="number" placeholder="Cantidad"><br><br>
+
+<select name="estado">
+    <option value="activo">Activo</option>
+    <option value="retirado">Retirado</option>
+</select><br><br>
+
+<input type="date" name="fecha_registro"><br><br>
+
+<button>Guardar</button>
+
+</form>
